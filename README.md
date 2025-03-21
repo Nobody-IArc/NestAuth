@@ -2,6 +2,7 @@
 |날짜|내역|진행도|비고|
 |:---:|:---:|:---:|:---:|
 |03.21|User Controller, Service, Repository 생성|15%|http Test 완료|
+|03.21 -2|유효성 검증 추가|25%|http Test 완료|
 
 
 ___
