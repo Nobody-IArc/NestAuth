@@ -23,3 +23,13 @@ content-type: application/json
 
 ### DeleteUser
 DELETE http://localhost:3000/user/delete/arthur@red.com
+
+### Wrong Email
+POST http://localhost:3000/user/create
+content-type: application/json
+
+{
+  "username": "Wrong Name",
+  "password": "Wrong Password",
+  "email": "Wrong Email"
+}
