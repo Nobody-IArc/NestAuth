@@ -18,11 +18,7 @@ export class UserController {
   @Post('/create')
   async createUser(@Body() user: CreateUserDto) {
     // DTO 에서 밭은 값과 필요한 값을 매핑해서 전송
-    const sendUser = new User();
-    sendUser.username = user.username;
-    sendUser.password = user.password;
-    sendUser.email = user.email;
-    sendUser.createdAt = new Date();
+    const sendUser = Object.assign(new User(), user, { createdAt: new Date() });
     return await this.userService.createUser(sendUser);
   }
 

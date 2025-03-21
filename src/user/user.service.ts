@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 
-@Injectable() // 의존성 주입
+@Injectable() // 의존성 주입 Provider
 export class UserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
