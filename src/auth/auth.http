@@ -17,3 +17,15 @@ content-type: application/json
   "email": "arthur@red.com",
   "password": "Red2"
 }
+
+### Login Encrypted
+POST http://localhost:3000/auth/login-en
+content-type: application/json
+
+{
+  "email": "arthur@red.com",
+  "password": "Red2"
+}
+
+### Test Guard
+GET http://localhost:3000/auth/guard-test

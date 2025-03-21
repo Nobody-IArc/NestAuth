@@ -1,13 +1,17 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
-  Request as ReqDec,
-  Response as ResDec,
+  Request,
+  Response,
+  UseGuards,
 } from '@nestjs/common';
-import { CreateUserDto } from '../user/user.dto';
+import { CreateUserDto, LoginUserDto } from '../user/user.dto';
 import { AuthService } from './auth.service';
-import { Request, Response } from 'express';
+// import { Request, Response } from 'express';
+import { AuthGuard } from './auth.guard';
+// import { RequestWithUser } from './auth.body-interface';
 
 @Controller('auth')
 export class AuthController {
@@ -20,8 +24,8 @@ export class AuthController {
   }
 
   @Post('login') // 로그인
-  async login(@ReqDec() req: Request, @ResDec() res: Response) {
-    const { email, password } = req.body as { email: string; password: string };
+  async login(@Request() req, @Response() res) {
+    const { email, password } = req.body;
     const userInfo = await this.authService.validateUser(email, password);
 
     if (userInfo) {
@@ -31,5 +35,23 @@ export class AuthController {
       });
     }
     return res.send({ message: 'User logged in successfully' });
+  }
+
+  @UseGuards(AuthGuard) // AuthGuard 사용
+  @Post('login-en')
+  loginEn(@Request() req, @Response() res) {
+    if (!req.cookies['login'] && req.user) {
+      res.cookie('login', JSON.stringify(req.user), {
+        httpOnly: true,
+        maxAge: 1000 * 10,
+      });
+    }
+    return res.send({ message: 'User logged in successfully' });
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('guard-test')
+  guardTest() {
+    return 'Need to be logged in';
   }
 }
