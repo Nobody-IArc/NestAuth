@@ -31,4 +31,16 @@ export class AuthService {
       throw new HttpException('Server Error', 500);
     }
   }
+
+  async validateUser(email: string, password: string) {
+    const user = await this.userService.getUser(email);
+    if (!user) {
+      return 'Wrong email or password';
+    }
+    const { password: hashedPassword, ...userInfo } = user;
+    if (bcrypt.compareSync(password, hashedPassword)) {
+      return userInfo;
+    }
+    return 'Wrong email or password';
+  }
 }

@@ -8,3 +8,12 @@ content-type: application/json
   "password": "Red2",
   "username": "Arthur"
 }
+
+### Login
+POST http://localhost:3000/auth/login
+content-type: application/json
+
+{
+  "email": "arthur@red.com",
+  "password": "Red2"
+}
