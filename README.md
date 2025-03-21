@@ -3,6 +3,7 @@
 |:---:|:---:|:---:|:---:|
 |03.21|User Controller, Service, Repository 생성|15%|http Test 완료|
 |03.21 -2|유효성 검증 추가|25%|http Test 완료|
+|03.21 -3|유효성 검증 회원 가입 및 암호화 진행|40%|gitignore '.sqlite'|
 
 
 ___
