@@ -1,3 +1,10 @@
+## 진행 내역
+|날짜|내역|진행도|비고|
+|:---:|:---:|:---:|:---:|
+|03.21|User Controller, Service, Repository 생성|15%|http Test 완료|
+
+
+___
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
