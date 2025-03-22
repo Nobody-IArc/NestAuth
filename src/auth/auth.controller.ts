@@ -10,7 +10,7 @@ import {
 import { CreateUserDto, LoginUserDto } from '../user/user.dto';
 import { AuthService } from './auth.service';
 // import { Request, Response } from 'express';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard, LocalAuthGuard, AuthenticateGuard } from './auth.guard';
 // import { RequestWithUser } from './auth.body-interface';
 
 @Controller('auth')
@@ -43,7 +43,7 @@ export class AuthController {
     if (!req.cookies['login'] && req.user) {
       res.cookie('login', JSON.stringify(req.user), {
         httpOnly: true,
-        maxAge: 1000 * 10,
+        maxAge: 1000 * 60 * 60 * 24,
       });
     }
     return res.send({ message: 'User logged in successfully' });
@@ -53,5 +53,17 @@ export class AuthController {
   @Get('guard-test')
   guardTest() {
     return 'Need to be logged in';
+  }
+
+  @UseGuards(LocalAuthGuard)
+  @Post('login-session')
+  loginSession(@Request() req) {
+    return req.user;
+  }
+
+  @UseGuards(AuthenticateGuard)
+  @Get('auth-test')
+  testGuardWithSession(@Request() req) {
+    return req.user;
   }
 }

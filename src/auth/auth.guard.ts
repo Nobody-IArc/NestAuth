@@ -1,6 +1,7 @@
 import { CanActivate, Injectable, ExecutionContext } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RequestWithUser } from './auth.body-interface';
+import { AuthGuard as AGuard } from '@nestjs/passport';
 
 @Injectable() // Provider
 export class AuthGuard implements CanActivate {
@@ -28,5 +29,24 @@ export class AuthGuard implements CanActivate {
 
     request.user = user;
     return true;
+  }
+}
+
+@Injectable()
+export class LocalAuthGuard extends AGuard('local') {
+  async canActive(context: ExecutionContext): Promise<boolean> {
+    const result = (await super.canActivate(context)) as boolean;
+
+    const request = context.switchToHttp().getRequest();
+    await super.logIn(request);
+    return result;
+  }
+}
+
+@Injectable()
+export class AuthenticateGuard implements CanActivate {
+  canActivate(context: ExecutionContext) {
+    const request = context.switchToHttp().getRequest();
+    return request.isAuthenticated();
   }
 }

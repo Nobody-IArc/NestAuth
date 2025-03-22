@@ -29,3 +29,24 @@ content-type: application/json
 
 ### Test Guard
 GET http://localhost:3000/auth/guard-test
+
+### Login Session
+POST http://localhost:3000/auth/login-session
+content-type: application/json
+
+{
+  "email": "arthur@red.com",
+  "password": "Red2"
+}
+
+### Login Session - Wrong Password
+POST http://localhost:3000/auth/login-session
+content-type: application/json
+
+{
+  "email": "arthur@red.com",
+  "password": "Red3"
+}
+
+### Authenticate Test
+GET http://localhost:3000/auth/auth-test
