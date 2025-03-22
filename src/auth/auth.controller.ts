@@ -7,11 +7,9 @@ import {
   Response,
   UseGuards,
 } from '@nestjs/common';
-import { CreateUserDto, LoginUserDto } from '../user/user.dto';
+import { CreateUserDto } from '../user/user.dto';
 import { AuthService } from './auth.service';
-// import { Request, Response } from 'express';
 import { AuthGuard, LocalAuthGuard, AuthenticateGuard } from './auth.guard';
-// import { RequestWithUser } from './auth.body-interface';
 
 @Controller('auth')
 export class AuthController {
@@ -24,7 +22,7 @@ export class AuthController {
   }
 
   @Post('login') // 로그인
-  async login(@Request() req, @Response() res) {
+  async login(@Request() req: any, @Response() res: any) {
     const { email, password } = req.body;
     const userInfo = await this.authService.validateUser(email, password);
 
@@ -39,7 +37,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard) // AuthGuard 사용
   @Post('login-en')
-  loginEn(@Request() req, @Response() res) {
+  loginEn(@Request() req: any, @Response() res: any) {
     if (!req.cookies['login'] && req.user) {
       res.cookie('login', JSON.stringify(req.user), {
         httpOnly: true,
@@ -57,13 +55,13 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login-session')
-  loginSession(@Request() req) {
+  loginSession(@Request() req: any) {
     return req.user;
   }
 
   @UseGuards(AuthenticateGuard)
   @Get('auth-test')
-  testGuardWithSession(@Request() req) {
+  testGuardWithSession(@Request() req: any) {
     return req.user;
   }
 }
